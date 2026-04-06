@@ -1,29 +1,23 @@
 {
   "expo": {
     "name": "BhcJobs",
-    "slug": "BhcJobs",
+    "slug": "bhcjobs",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
+      "backgroundColor": "#1a3c5e"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#1a3c5e"
       },
-      "edgeToEdgeEnabled": true
+      "package": "com.bhcjobs.app"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.bhcjobs.app"
     }
   }
 }
