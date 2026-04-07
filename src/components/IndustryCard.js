@@ -1,40 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-
-// icon map -- add more as needed based on industry names from API
-const INDUSTRY_ICONS = {
-  Construction: 'hammer-wrench',
-  Hotel: 'bed',
-  Agriculture: 'sprout',
-  Factory: 'factory',
-  Restaurant: 'food',
-  Cafes: 'coffee',
-  Facilities: 'office-building-cog',
-  Contracting: 'tools',
-  default: 'briefcase',
-};
-
-const getIcon = (name = '') => {
-  const key = Object.keys(INDUSTRY_ICONS).find((k) =>
-    name.toLowerCase().includes(k.toLowerCase())
-  );
-  return INDUSTRY_ICONS[key] || INDUSTRY_ICONS.default;
-};
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const IndustryCard = ({ item }) => {
-  const iconName = getIcon(item?.name || item?.title || '');
   const label = item?.name || item?.title || 'Industry';
-  const jobCount = item?.jobs_count ?? item?.job_count ?? item?.jobs ?? 0;
+  const jobCount = item?.jobs_count ?? item?.job_count ?? 0;
+  const imageUrl = item?.image
+    ? `https://dev.bhcjobs.com/storage/industry-image/${item.image}`
+    : null;
 
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.75}>
-      <View style={styles.iconWrapper}>
-        <MaterialCommunityIcons name={iconName} size={26} color="#1a3c5e" />
+      <View style={styles.imgWrapper}>
+        {imageUrl ? (
+          <Image source={{ uri: imageUrl }} style={styles.img} resizeMode="cover" />
+        ) : (
+          <Text style={styles.fallbackText}>{label.charAt(0)}</Text>
+        )}
       </View>
-      <Text style={styles.label} numberOfLines={2}>
-        {label}
-      </Text>
+      <Text style={styles.label} numberOfLines={2}>{label}</Text>
       <Text style={styles.count}>{jobCount} Jobs</Text>
     </TouchableOpacity>
   );
@@ -54,11 +37,24 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 3,
   },
-  iconWrapper: {
+  imgWrapper: {
+    width: 56,
+    height: 56,
+    borderRadius: 12,
     backgroundColor: '#e8f0f8',
-    borderRadius: 50,
-    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 8,
+    overflow: 'hidden',
+  },
+  img: {
+    width: 56,
+    height: 56,
+  },
+  fallbackText: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#1a3c5e',
   },
   label: {
     fontSize: 12,

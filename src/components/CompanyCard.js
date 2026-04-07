@@ -1,23 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const CompanyCard = ({ item }) => {
-  const name = item?.name || item?.company_name || 'Company';
-  const jobCount = item?.jobs_count ?? item?.job_count ?? item?.jobs ?? 0;
-
-  // pick a background based on first letter for variety
-  const colors = ['#1a3c5e', '#2a7d4f', '#c0392b', '#8e44ad', '#d35400', '#16a085'];
-  const colorIndex = name.charCodeAt(0) % colors.length;
-  const bgColor = colors[colorIndex];
+  const name = item?.name || 'Company';
+  const jobCount = item?.jobs_count ?? item?.job_count ?? 0;
+  const imageUrl = item?.image
+    ? `https://dev.bhcjobs.com/storage/company-image/${item.image}`
+    : null;
 
   return (
     <TouchableOpacity style={styles.card} activeOpacity={0.75}>
-      <View style={[styles.avatar, { backgroundColor: bgColor }]}>
-        <Text style={styles.avatarText}>{name.charAt(0).toUpperCase()}</Text>
+      <View style={styles.imgWrapper}>
+        {imageUrl ? (
+          <Image source={{ uri: imageUrl }} style={styles.img} resizeMode="contain" />
+        ) : (
+          <Text style={styles.fallbackText}>{name.charAt(0)}</Text>
+        )}
       </View>
-      <Text style={styles.name} numberOfLines={2}>
-        {name}
-      </Text>
+      <Text style={styles.name} numberOfLines={2}>{name}</Text>
       <Text style={styles.jobs}>{jobCount} Jobs</Text>
     </TouchableOpacity>
   );
@@ -37,18 +37,24 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 3,
   },
-  avatar: {
-    width: 50,
-    height: 50,
+  imgWrapper: {
+    width: 56,
+    height: 56,
     borderRadius: 12,
+    backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,
+    overflow: 'hidden',
   },
-  avatarText: {
-    color: '#fff',
+  img: {
+    width: 56,
+    height: 56,
+  },
+  fallbackText: {
     fontSize: 22,
     fontWeight: '700',
+    color: '#1a3c5e',
   },
   name: {
     fontSize: 13,

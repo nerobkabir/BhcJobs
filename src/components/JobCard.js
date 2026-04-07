@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 const JobCard = ({ item }) => {
   const title = item?.job_title || item?.title || 'Job Title';
@@ -16,8 +17,8 @@ const JobCard = ({ item }) => {
   const salaryText = minSalary && maxSalary
     ? `${currency} ${minSalary} - ${maxSalary}`
     : minSalary
-    ? `${currency} ${minSalary}`
-    : '';
+      ? `${currency} ${minSalary}`
+      : '';
 
   const deadline = item?.expiry || item?.deadline || '';
   const formatDate = (dateStr) => {
@@ -34,7 +35,15 @@ const JobCard = ({ item }) => {
     <TouchableOpacity style={styles.card} activeOpacity={0.8}>
       <View style={styles.header}>
         <View style={styles.logoPlaceholder}>
-          <Text style={styles.logoText}>{company.charAt(0)}</Text>
+          {item?.company?.image ? (
+            <Image
+              source={{ uri: `https://dev.bhcjobs.com/storage/company-image/${item.company.image}` }}
+              style={{ width: 44, height: 44, borderRadius: 10 }}
+              resizeMode="contain"
+            />
+          ) : (
+            <Text style={styles.logoText}>{company.charAt(0)}</Text>
+          )}
         </View>
         <View style={styles.headerInfo}>
           <Text style={styles.title} numberOfLines={1}>{title}</Text>
