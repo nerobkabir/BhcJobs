@@ -18,6 +18,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.bhcjobs.app"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b61329c2-9ff5-4d9b-9659-7c5ce09dae76"
+      }
     }
   }
 }

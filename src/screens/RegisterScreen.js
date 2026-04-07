@@ -382,7 +382,7 @@ const RegisterScreen = ({ navigation }) => {
   }
 };
 
-// ── Small reusable input field component ──────────────────────
+// Small reusable input field component
 const InputField = ({
   label, icon, placeholder, value, onChangeText, error,
   keyboardType = 'default', autoCapitalize = 'words', maxLength,

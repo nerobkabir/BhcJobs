@@ -36,11 +36,10 @@ const LandingScreen = ({ navigation }) => {
       getCompanies(),
     ]);
 
-    // helper — API response থেকে array বের করে
+    // helper — API response get arry
     const extractArray = (res) => {
       if (!res.success) return [];
       const d = res.data;
-      // possible structures: d, d.data, d.data.data, d.industries, d.jobs, d.companies
       const candidates = [
         d?.data?.data, d?.data, d?.industries, d?.jobs,
         d?.companies, d?.industry, d?.job, d?.company, d,
@@ -55,7 +54,7 @@ const LandingScreen = ({ navigation }) => {
     const jobList = extractArray(jobRes);
     const companyList = extractArray(companyRes);
 
-    // debug — API structure দেখতে চাইলে
+    // debug — API structure
     console.log('Industry sample:', JSON.stringify(industryList[0]));
     console.log('Job sample:', JSON.stringify(jobList[0]));
     console.log('Company sample:', JSON.stringify(companyList[0]));
